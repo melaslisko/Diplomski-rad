@@ -14,5 +14,5 @@ public class EnableLetter : MonoBehaviour
     {
         Letter.SetActive(false);
     }
-
+    
 }
