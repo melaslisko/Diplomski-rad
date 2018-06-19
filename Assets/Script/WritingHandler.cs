@@ -202,7 +202,7 @@ public class WritingHandler : MonoBehaviour
 
             foreach (TracingPart part in tracingParts)
             {//check tracing parts
-                if (currentTracingPoints.Count == part.order.Length && !part.succeded)
+                if (currentTracingPoints.Count == part.order.Length && !part.succeeded)
                 {
                     if (PreviousLettersPartsSucceeded(part, tracingParts))
                     {//check whether the previous tracing parts are succeeded
@@ -220,7 +220,7 @@ public class WritingHandler : MonoBehaviour
                 }
                 if (equivfound)
                 {//if equivalent found 
-                    part.succeded = true;//then the tracing part is succeed (written as wanted)
+                    part.succeeded = true;//then the tracing part is succeed (written as wanted)
                     break;
                 }
             }
@@ -255,10 +255,11 @@ public class WritingHandler : MonoBehaviour
             if (cheeringSound != null)
             {
                 AudioSource.PlayClipAtPoint(cheeringSound, Vector3.zero, 0.8f);//play the cheering sound effect
-                solved.SetActive(true);
+                
             }
             hand.GetComponent<SpriteRenderer>().enabled = false;//hide the hand
         }
+        
     }
 
     //Check letter done or not
@@ -268,9 +269,10 @@ public class WritingHandler : MonoBehaviour
         TracingPart[] tracingParts = letters[currentLetterIndex].GetComponents<TracingPart>();//get the tracing parts of the current letter
         foreach (TracingPart part in tracingParts)
         {
-            if (!part.succeded)
+            if (!part.succeeded)
             {
                 success = false;
+                solved.SetActive(false);
                 break;
             }
         }
@@ -278,6 +280,7 @@ public class WritingHandler : MonoBehaviour
         if (success)
         {
             letterDone = true;//letter done flag
+            solved.SetActive(true);
             Debug.Log("You done the " + letters[currentLetterIndex].name);
         }
     }
@@ -295,7 +298,7 @@ public class WritingHandler : MonoBehaviour
         TracingPart[] tracingParts = letters[currentLetterIndex].GetComponents<TracingPart>();
         foreach (TracingPart part in tracingParts)
         {
-            part.succeded = false;
+            part.succeeded = false;
         }
         if (hand != null)
             hand.GetComponent<SpriteRenderer>().enabled = true;
@@ -354,20 +357,20 @@ public class WritingHandler : MonoBehaviour
             return true;
         }
 
-        bool prevsucceded = true;
+        bool prevsucceeded = true;
         foreach (TracingPart part in lparts)
         {
             if (part.priority < p)
             {
-                if (!part.succeded && part.order.Length != 1)
+                if (!part.succeeded && part.order.Length != 1)
                 {//make single point TracingParts have no priority
-                    prevsucceded = false;
+                    prevsucceeded = false;
                     break;
                 }
             }
         }
 
-        return prevsucceded;
+        return prevsucceeded;
     }
 
     //Play a positive or correct sound effect
@@ -430,6 +433,7 @@ public class WritingHandler : MonoBehaviour
             return;
         }
         letterDone = false;
+        solved.SetActive(false);
         RefreshProcess();
         HideLetters();
 

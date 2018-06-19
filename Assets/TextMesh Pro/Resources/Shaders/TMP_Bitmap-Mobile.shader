@@ -21,7 +21,7 @@ Properties {
 	_ColorMask("Color Mask", Float) = 15
 }
 
-SubShader {
+Shader {
 
 	Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 
@@ -127,7 +127,7 @@ SubShader {
 	}
 }
 
-SubShader {
+Shader {
 	Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 	Lighting Off Cull Off ZTest Always ZWrite Off Fog { Mode Off }
 	Blend SrcAlpha OneMinusSrcAlpha
