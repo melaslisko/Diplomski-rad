@@ -27,17 +27,17 @@ public class LineRendererAttributes : MonoBehaviour
     //Set a random color
     public void SetRandomColor()
     {
-        Color[] colors = new Color[10];
-        colors[1] = new Color(0.886f, 0.31f, 0.31f, 1f);
-        colors[0] = new Color(0.914f, 0.243f, 0.243f, 1f);
-        colors[2] = new Color(0.655f, 0.388f, 0.635f, 1f);
-        colors[3] = new Color(0.31f, 0.337f, 0.898f, 1f);
-        colors[4] = new Color(0.914f, 0.549f, 0.314f, 1f);
-        colors[5] = new Color(0.439f, 0.965f, 0.463f, 1f);
-        colors[6] = new Color(0.992f, 0.635f, 0.91f, 1f);
-        colors[7] = new Color(0.733f, 0.98f, 1f, 1f);
-        colors[8] = new Color(0.804f, 1f, 0.733f, 1f);
-        colors[9] = new Color(0.702f, 0.71f, 0.729f, 1f);
+        Color[] colors = new Color[3];
+        colors[2] = new Color(1f, 0.69f, 0.82f, 1f);
+        //colors[0] = new Color(0.914f, 0.243f, 0.243f, 1f);
+        colors[0] = new Color(0.25f, 0.66f, 0.97f, 1f);
+        //colors[3] = new Color(0.62f, 0.87f, 0.44f, 1f);
+        //colors[1] = new Color(0.914f, 0.549f, 0.898f, 1f);
+        //colors[5] = new Color(0.439f, 0.965f, 0.463f, 1f);
+        //colors[6] = new Color(0.992f, 0.635f, 0.91f, 1f);
+        colors[1] = new Color(0.733f, 0.98f, 1f, 1f);
+        //colors[8] = new Color(0.804f, 1f, 0.733f, 1f);
+        //colors[9] = new Color(0.702f, 0.71f, 0.729f, 1f);
         material.color = colors[Random.Range(0, colors.Length)];
         return;
     }

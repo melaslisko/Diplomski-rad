@@ -17,9 +17,4 @@ public class General : MonoBehaviour
 				}
 		}
 
-        public void Mute()
-        {
-            AudioListener.pause = !AudioListener.pause;
-        }
-
 }
