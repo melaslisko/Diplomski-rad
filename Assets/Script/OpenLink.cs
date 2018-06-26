@@ -21,4 +21,16 @@ public class OpenLink : MonoBehaviour
         //Application.ExternalEval("window.open(\"http://www.ict-aac.hr/index.php/hr\")");
         return;
     }
+    public void OpenHRPrivacyPolicy()
+    {
+        Application.OpenURL("http://www.ict-aac.hr/index.php/hr/politika-privatnosti");
+        //Application.ExternalEval("window.open(\"http://www.ict-aac.hr/index.php/hr\")");
+        return;
+    }
+    public void OpenENPrivacyPolicy()
+    {
+        Application.OpenURL("http://www.ict-aac.hr/index.php/en/privacy-policy");
+        //Application.ExternalEval("window.open(\"http://www.ict-aac.hr/index.php/hr\")");
+        return;
+    }
 }
