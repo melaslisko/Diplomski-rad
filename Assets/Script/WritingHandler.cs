@@ -199,7 +199,7 @@ public class WritingHandler : MonoBehaviour
         bool equivfound = false;//whether a matching or equivalent tracing part found
         if (!clickBeganOrMovedOutOfLetterArea)
         {
-
+            Debug.Log("12");
             foreach (TracingPart part in tracingParts)
             {//check tracing parts
                 if (currentTracingPoints.Count == part.order.Length && !part.succeeded)
@@ -209,17 +209,27 @@ public class WritingHandler : MonoBehaviour
                         equivfound = true;//assume true
                         for (int i = 0; i < currentTracingPoints.Count; i++)
                         {
+                            Debug.Log("1");
                             int index = (int)currentTracingPoints[i];
+                            Debug.Log("Index:" + index);
+                            Debug.Log("Part order" + part.order[i]);
                             if (index != part.order[i])
                             {
+                                Debug.Log("3");
                                 equivfound = false;
                                 break;
                             }
                         }
                     }
+                   /* else if (currentTracingPoints.Count == part.order.Length && part.succeeded)
+                    {
+                        Debug.Log("99");
+                        equivfound = true;
+                    }*/
                 }
                 if (equivfound)
                 {//if equivalent found 
+                    Debug.Log("4");
                     part.succeeded = true;//then the tracing part is succeed (written as wanted)
                     break;
                 }
@@ -241,9 +251,12 @@ public class WritingHandler : MonoBehaviour
         }
         else
         {
+            Debug.Log("8");
             PlayWrongSound();//play negative or wrong answer sound effect
             Destroy(currentLineRender);//destroy the current line
             currentLineRender = null;//release the current line
+            equivfound = true;
+            clickBeganOrMovedOutOfLetterArea = false;
         }
 
         previousPosition = Vector2.zero;//reset previous position
@@ -254,12 +267,12 @@ public class WritingHandler : MonoBehaviour
         {//if the current letter done or wirrten successfully
             if (cheeringSound != null)
             {
-                AudioSource.PlayClipAtPoint(cheeringSound, Vector3.zero, 0.8f);//play the cheering sound effect
-                
+                AudioSource.PlayClipAtPoint(cheeringSound, Vector3.zero, 1f);//play the cheering sound effect
+
             }
             hand.GetComponent<SpriteRenderer>().enabled = false;//hide the hand
         }
-        
+
     }
 
     //Check letter done or not
@@ -360,10 +373,13 @@ public class WritingHandler : MonoBehaviour
         bool prevsucceeded = true;
         foreach (TracingPart part in lparts)
         {
+            Debug.Log("p: " + p);
             if (part.priority < p)
             {
+                Debug.Log("5");
                 if (!part.succeeded && part.order.Length != 1)
                 {//make single point TracingParts have no priority
+                    Debug.Log("6");
                     prevsucceeded = false;
                     break;
                 }
@@ -377,14 +393,14 @@ public class WritingHandler : MonoBehaviour
     private void PlayPositiveSound()
     {
         if (positiveSound != null)
-            AudioSource.PlayClipAtPoint(positiveSound, Vector3.zero, 0.8f);//play the cheering sound effect
+            AudioSource.PlayClipAtPoint(positiveSound, Vector3.zero, 1f);//play the cheering sound effect
     }
 
     //Play wrong or opps sound effect
     private void PlayWrongSound()
     {
         if (wrongSound != null)
-            AudioSource.PlayClipAtPoint(wrongSound, Vector3.zero, 0.8f);//play the cheering sound effect
+            AudioSource.PlayClipAtPoint(wrongSound, Vector3.zero, 1f);//play the cheering sound effect
     }
 
     //Load the next letter
@@ -394,7 +410,8 @@ public class WritingHandler : MonoBehaviour
         if (currentLetterIndex == letters.Length - 1)
         {
             currentLetterIndex = 0;
-            Application.LoadLevel("ABCMenu");
+            //Application.LoadLevel("ABCMenu");
+            LoadLetter();
         }
         else if (currentLetterIndex >= 0 && currentLetterIndex < letters.Length - 1)
         {
@@ -410,6 +427,11 @@ public class WritingHandler : MonoBehaviour
         if (currentLetterIndex > 0 && currentLetterIndex < letters.Length)
         {
             currentLetterIndex--;
+            LoadLetter();
+        }
+        else if (currentLetterIndex == 0)
+        {
+            currentLetterIndex = letters.Length - 1;
             LoadLetter();
         }
 
