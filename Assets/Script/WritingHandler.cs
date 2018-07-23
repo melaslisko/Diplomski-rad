@@ -41,11 +41,11 @@ public class WritingHandler : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {//on escape pressed
             BackToMenu();//back to menu 
         }
-
+        */
         RaycastHit2D hit2d = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);//raycast hid c
 
         if (hit2d.collider != null)
