@@ -10,4 +10,5 @@ public class CloseModal : MonoBehaviour
     {
         modalWindow.SetActive(false);
     }
+
 }

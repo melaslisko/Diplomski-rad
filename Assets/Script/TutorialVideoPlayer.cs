@@ -12,8 +12,7 @@ public class TutorialVideoPlayer : MonoBehaviour
 
     public VideoClip videoToPlay;
 
-    public bool isCorrect;
-
+    //public bool isCorrect;
     private VideoPlayer videoPlayer;
     private VideoSource videoSource;
 
@@ -23,26 +22,28 @@ public class TutorialVideoPlayer : MonoBehaviour
     void Start()
     {
         Application.runInBackground = true;
+        
+        //StartCoroutine(playVideo());
+    }
+    private void OnEnable()
+    {
+        
         StartCoroutine(playVideo());
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(playVideo());
     }
 
     IEnumerator playVideo()
     {
-
-        //Add VideoPlayer to the GameObject
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
-
-        //Add AudioSource
-        //audioSource = gameObject.AddComponent<AudioSource>();
-
-        //Disable Play on Awake for both Video and Audio
         videoPlayer.playOnAwake = true;
-        //audioSource.playOnAwake = false;
         videoPlayer.isLooping = true;
-        //audioSource.Pause();
+        videoPlayer.waitForFirstFrame = false;
 
 
-        if (Application.platform == RuntimePlatform.WebGLPlayer && isCorrect == true)
+        /*if (Application.platform == RuntimePlatform.WebGLPlayer && isCorrect == true)
         {
             // Vide clip from Url
             videoPlayer.source = VideoSource.Url;
@@ -53,20 +54,20 @@ public class TutorialVideoPlayer : MonoBehaviour
             videoPlayer.source = VideoSource.Url;
             videoPlayer.url = "https://s3-us-west-2.amazonaws.com/converterpoint-22/encodings/b90abed10c8e293dea0e4de2e4cbdbef.mp4";
         } else if (Application.platform != RuntimePlatform.WebGLPlayer)
-        {
-            //We want to play from video clip not from url
+        {*/
+        //We want to play from video clip not from url
 
-            videoPlayer.source = VideoSource.VideoClip;
-            videoPlayer.clip = videoToPlay;
+        videoPlayer.source = VideoSource.VideoClip;
+        videoPlayer.clip = videoToPlay;
 
-        }
+        // }
 
 
         //Set Audio Output to AudioSource
-        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+        //videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
 
         //Assign the Audio from Video to AudioSource to be played
-        videoPlayer.EnableAudioTrack(0, true);
+        //videoPlayer.EnableAudioTrack(0, true);
         //videoPlayer.SetTargetAudioSource(0, audioSource);
 
         //Set video To Play then prepare Audio to prevent Buffering
@@ -81,24 +82,24 @@ public class TutorialVideoPlayer : MonoBehaviour
             yield return waitTime;
         }
 
-        Debug.Log("Done Preparing Video");
-
         //Assign the Texture from Video to RawImage to be displayed
         image.texture = videoPlayer.texture;
 
         //Play Video
         videoPlayer.Play();
-
         //Play Sound
         //audioSource.Play();
 
-        Debug.Log("Playing Video");
         while (videoPlayer.isPlaying)
         {
-            Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)videoPlayer.time));
-            yield return null;
+
+             yield return null;
+            
         }
-        Debug.Log("Done Playing Video");
+
+
     }
 }
+
+
 
