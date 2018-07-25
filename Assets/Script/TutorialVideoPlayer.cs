@@ -22,25 +22,25 @@ public class TutorialVideoPlayer : MonoBehaviour
     void Start()
     {
         Application.runInBackground = true;
-        
-        //StartCoroutine(playVideo());
     }
     private void OnEnable()
     {
-        
         StartCoroutine(playVideo());
     }
     private void OnDisable()
     {
-        StopCoroutine(playVideo());
-    }
+        //StopCoroutine(playVideo());
+        //videoPlayer.Stop();
+        Destroy(videoPlayer);
+        StopAllCoroutines();
+}
 
     IEnumerator playVideo()
     {
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
         videoPlayer.playOnAwake = true;
         videoPlayer.isLooping = true;
-        videoPlayer.waitForFirstFrame = false;
+        videoPlayer.waitForFirstFrame = true;
 
 
         /*if (Application.platform == RuntimePlatform.WebGLPlayer && isCorrect == true)
